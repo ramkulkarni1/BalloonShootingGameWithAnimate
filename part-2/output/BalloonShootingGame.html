@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>BalloonShootingGame</title>
+<!-- write your code here -->
+<style>
+  #animation_container {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+</style>
+<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<script src="BalloonShootingGame.js?1605337266921"></script>
+<script>
+// Global Scripts
+	var lib,
+	bulletTweenTime = 10,
+	ballonTweenTime = 40,
+	balloonSpawnIntervalHandle,
+	backgroundScoreLoaded = false,
+	backgroundScorePlaying = false
+;
+function initApp(argLib) {
+	lib = argLib;
+	loadSounds();
+	registerEventListeners();
+	balloonSpawnIntervalHandle = setInterval(spawnBalloons, 1000);
+	exportRoot.bullet.visible = 
+		exportRoot.balloon.visible = false;
+}
+function registerEventListeners() {
+	document.addEventListener('keydown', function(evt) {
+		if (backgroundScoreLoaded && !backgroundScorePlaying) {
+			AdobeAnimateGM.playSound('background', -1);
+		}
+		if (evt.key == ' ')
+			fireBullet();
+	});
+}
+function fireBullet() {
+	var bullet = AdobeAnimateGM.createGameObject(
+		lib.bullet_sym,
+		exportRoot.gun.x+24, 
+		exportRoot.gun.y-67,
+		null,
+		[[{y: -10}, bulletTweenTime]]
+	);
+	AdobeAnimateGM.playSound('gun_shot',0);
+	bullet.setTagName('bullet');
+	bullet.addEventListener('collision', onBalloonHit);		
+}
+function spawnBalloons() {
+	var balloon = AdobeAnimateGM.createGameObject(
+		lib.balloon_sym,
+		-10, 
+		AdobeAnimateGM.getRandomNumber(10, lib.properties.height / 2),
+		null,
+		[[{x: lib.properties.width + 20}, ballonTweenTime]]
+	);
+	balloon.setTagName('balloon');
+}
+function onBalloonHit(evt) {
+	var tagName = evt.obj2.getTagName();
+	if (tagName == 'balloon') {
+		AdobeAnimateGM.playSound('balloon-popped',0);
+		evt.obj2.destroy();
+	}
+}
+function loadSounds() {
+	AdobeAnimateGM.registerSound('./sounds/gun-shot.wav', 'gun_shot');
+	AdobeAnimateGM.registerSound('./sounds/balloon-pop.wav', 'balloon-popped');
+	AdobeAnimateGM.registerSound('./sounds/background.mp3', 'background', 
+		function() {
+			backgroundScoreLoaded = true;
+	});		
+}</script>
+<script type='text/javascript' src='libs/game_manager.js'></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("052F4CB443DB407A83060B50AF7776FC");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.BalloonShootingGame();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.framerate = lib.properties.fps;
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(153, 204, 255, 1.00); width:900px; height:600px">
+		<canvas id="canvas" width="900" height="600" style="position: absolute; display: block; background-color:rgba(153, 204, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:900px; height:600px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+</body>
+</html>
