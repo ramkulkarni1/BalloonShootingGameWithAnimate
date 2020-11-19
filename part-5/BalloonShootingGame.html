@@ -22,7 +22,7 @@
   }
 </style>
 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="BalloonShootingGame.js?1605422658179"></script>
+<script src="BalloonShootingGame.js?1605763858761"></script>
 <script>
 // Global Scripts
 	var lib,
@@ -35,20 +35,31 @@
 	numBalloonsSpawned = 0,
 	numBulletsFired = 0,
 	ammoStock = 20,
-	gameOver = true
+	gameOver = true,
+	gunSpeed = 20
 ;
 function initApp(argLib) {
 	lib = argLib;
 	loadSounds();
-	exportRoot.end_game.visible = false;
+	exportRoot.bullet.visible = 
+		exportRoot.balloon.visible =
+		exportRoot.end_game.visible = false;
 	registerEventListeners();
 }
 function registerEventListeners() {
 	document.addEventListener('keydown', function(evt) {
 		if (gameOver) return;
-		playBackgroundSound();
+		//playBackgroundSound();
 		if (evt.key == ' ')
 			fireBullet();
+		else if (evt.key == 'ArrowLeft' && exportRoot.gun.x > 0)
+			exportRoot.gun.x -= gunSpeed;
+		else if (evt.key == 'ArrowRight' && exportRoot.gun.x < (lib.properties.width - 20))
+			exportRoot.gun.x += gunSpeed;
+		else if (evt.key == 'ArrowUp' && exportRoot.gun.y > 0)
+			exportRoot.gun.y -= gunSpeed;
+		else if (evt.key == 'ArrowDown' && exportRoot.gun.y < (lib.properties.height - 20))
+			exportRoot.gun.y += gunSpeed;
 	});
 	exportRoot.start_game.start_btn.on('click', startGame);
 	exportRoot.end_game.play_again_btn.on('click', startGame);
@@ -120,10 +131,8 @@ function onGameOver() {
 }
 function startGame() {
 	balloonSpawnIntervalHandle = setInterval(spawnBalloons, 1000);
-	exportRoot.bullet.visible = 
-		exportRoot.start_game.visible = 
-		exportRoot.end_game.visible = 
-		exportRoot.balloon.visible = false;
+	exportRoot.start_game.visible = 
+		exportRoot.end_game.visible = false;
 	numHits = 0,
 	numBalloonsSpawned = 0,
 	numBulletsFired = 0,

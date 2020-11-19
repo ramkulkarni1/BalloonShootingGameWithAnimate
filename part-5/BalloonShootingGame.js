@@ -27,42 +27,42 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_73 = function() {
+(lib.CachedBmp_7 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_71 = function() {
+(lib.CachedBmp_5 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_72 = function() {
+(lib.CachedBmp_6 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_69 = function() {
+(lib.CachedBmp_3 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_54 = function() {
+(lib.CachedBmp_2 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(4);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_53 = function() {
+(lib.CachedBmp_1 = function() {
 	this.initialize(ss["BalloonShootingGame_atlas_1"]);
 	this.gotoAndStop(5);
 }).prototype = p = new cjs.Sprite();
@@ -164,10 +164,10 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Layer_1
-	this.instance = new lib.CachedBmp_73();
+	this.instance = new lib.CachedBmp_7();
 	this.instance.setTransform(-35.75,-22.2,0.5,0.5);
 
-	this.instance_1 = new lib.CachedBmp_72();
+	this.instance_1 = new lib.CachedBmp_6();
 	this.instance_1.setTransform(-80.5,-25.5,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_1},{t:this.instance}]}).wait(1));
@@ -190,10 +190,10 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Layer_1
-	this.instance = new lib.CachedBmp_71();
+	this.instance = new lib.CachedBmp_5();
 	this.instance.setTransform(-73.55,-19.7,0.5,0.5);
 
-	this.instance_1 = new lib.CachedBmp_72();
+	this.instance_1 = new lib.CachedBmp_6();
 	this.instance_1.setTransform(-80.5,-25.5,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_1},{t:this.instance}]}).wait(1));
@@ -310,7 +310,7 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// text
-	this.instance = new lib.CachedBmp_69();
+	this.instance = new lib.CachedBmp_3();
 	this.instance.setTransform(-149,-92.5,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
@@ -375,7 +375,7 @@ if (reversed == null) { reversed = false; }
 	this.ammo_txt.parent = this;
 	this.ammo_txt.setTransform(87.05,28.5);
 
-	this.instance = new lib.CachedBmp_54();
+	this.instance = new lib.CachedBmp_2();
 	this.instance.setTransform(8.55,26.4,0.5,0.5);
 
 	this.score_txt = new cjs.Text("0", "21px 'Times New Roman'", "#0000FF");
@@ -385,7 +385,7 @@ if (reversed == null) { reversed = false; }
 	this.score_txt.parent = this;
 	this.score_txt.setTransform(822.05,28.5);
 
-	this.instance_1 = new lib.CachedBmp_53();
+	this.instance_1 = new lib.CachedBmp_1();
 	this.instance_1.setTransform(748.55,26.4,0.5,0.5);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_1},{t:this.score_txt},{t:this.instance},{t:this.ammo_txt}]}).wait(1));
@@ -425,8 +425,8 @@ lib.properties = {
 	color: "#99CCFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/toygun.png?1605422658170", id:"toygun"},
-		{src:"images/BalloonShootingGame_atlas_1.png?1605422658123", id:"BalloonShootingGame_atlas_1"}
+		{src:"images/toygun.png?1605763858749", id:"toygun"},
+		{src:"images/BalloonShootingGame_atlas_1.png?1605763858705", id:"BalloonShootingGame_atlas_1"}
 	],
 	preloads: []
 };
