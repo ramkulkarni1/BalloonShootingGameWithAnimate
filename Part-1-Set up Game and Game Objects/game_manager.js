@@ -23,6 +23,10 @@
         var soundManager = new SoundManager();
 
         self.createGameObject = function (sym, initialX=0, initialY=0, parentSym=null, tweens=null, rigidBody=true, scaleX=1, scaleY=1) {
+            if (!symFunc) {
+                throw ('Error creating Game Object. Symbol function is not defined or null');
+            }
+
             if (tweens == null) {
                 return _createGameObject(sym, rigidBody, initialX, initialY, scaleX, scaleY, parentSym);
             } else {
